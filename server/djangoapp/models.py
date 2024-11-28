@@ -1,25 +1,50 @@
-# Uncomment the following imports before adding the Model code
+from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils.timezone import now
 
-# from django.db import models
-# from django.utils.timezone import now
-# from django.core.validators import MaxValueValidator, MinValueValidator
+# Assuming CarMake model is already defined as per your previous requirements
+class CarMake(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField()
+    country = models.CharField(max_length=50, blank=True, null=True)
 
-
-# Create your models here.
-
-# <HINT> Create a Car Make model `class CarMake(models.Model)`:
-# - Name
-# - Description
-# - Any other fields you would like to include in car make model
-# - __str__ method to print a car make object
+    def __str__(self):
+        return self.name
 
 
-# <HINT> Create a Car Model model `class CarModel(models.Model):`:
-# - Many-To-One relationship to Car Make model (One Car Make has many
-# Car Models, using ForeignKey field)
-# - Name
-# - Type (CharField with a choices argument to provide limited choices
-# such as Sedan, SUV, WAGON, etc.)
-# - Year (IntegerField) with min value 2015 and max value 2023
-# - Any other fields you would like to include in car model
-# - __str__ method to print a car make object
+# Car Model
+class CarModel(models.Model):
+    # ForeignKey to CarMake model (Many-to-One relationship)
+    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE, related_name='car_models')
+
+    # Dealer ID (IntegerField), assuming it refers to a dealer in an external Cloudant database
+    dealer_id = models.IntegerField()
+
+    # Car model name (e.g., "Corolla", "X5")
+    name = models.CharField(max_length=100)
+
+    # Type of car (Sedan, SUV, Wagon, etc.)
+    CAR_TYPES = [
+        ('SEDAN', 'Sedan'),
+        ('SUV', 'SUV'),
+        ('WAGON', 'Wagon'),
+        # Add more car types as required
+    ]
+    type = models.CharField(max_length=10, choices=CAR_TYPES, default='SUV')
+
+    # Year of manufacture
+    year = models.IntegerField(
+        validators=[
+            MinValueValidator(2015),
+            MaxValueValidator(2023)
+        ],
+        default=2023
+    )
+
+    # You can add any other fields you deem necessary
+    description = models.TextField(blank=True, null=True)  # Optional description for the car model
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Optional price field
+
+    # String representation of the car model (returns both car make and model name)
+    def __str__(self):
+        return f"{self.car_make.name} {self.name} ({self.type}, {self.year})"
