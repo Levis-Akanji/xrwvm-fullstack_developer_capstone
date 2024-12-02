@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
 # Assuming CarMake model is already defined as per your previous requirements
 
 class CarMake(models.Model):
@@ -41,9 +42,11 @@ class CarModel(models.Model):
         default=2023
     )
 
-    # You can add any other fields you deem necessary
-    description = models.TextField(blank=True, null=True)  # Optional description for the car model
-    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)  # Optional price field
+    # Optional description for the car model
+    description = models.TextField(blank=True, null=True)
+
+    # Optional price field
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
     # String representation of the car model (returns both car make and model name)
     def __str__(self):
