@@ -49,8 +49,10 @@ class CarModel(models.Model):
     price = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True
     )
-#String representation of the car model 
+
+    # String representation of the car model
     def __str__(self):
         return (
             f"{self.car_make.name} {self.name} ({self.type}, {self.year})"
         )
+    
