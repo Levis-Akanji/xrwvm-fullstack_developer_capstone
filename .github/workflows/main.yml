@@ -1,0 +1,32 @@
+name: 'Lint Code'
+on:
+  push:
+    branches: [master, main]  # Trigger on push to master or main branch
+  pull_request:
+    branches: [master, main]  # Trigger on PR to master or main branch
+
+jobs:
+  lint_python:
+    name: Lint Python Files
+    runs-on: ubuntu-latest  # This runs the job on an Ubuntu runner
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3  # This checks out your code from the repository
+
+      - name: Set up Python
+        uses: actions/setup-python@v4  # This sets up Python on the runner
+        with:
+          python-version: 3.12  # Specify the Python version you want to use
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip  # Upgrade pip to the latest version
+          pip install flake8  # Install the Python linter (flake8)
+
+      - name: Run Linter (flake8)
+        run: |
+          find ./server -name "*.py" -exec flake8 {} +  # Lint Python files in the server directory
+
+      - name: Linting completed
+        run: echo "Linting completed successfully"  # Print success message
