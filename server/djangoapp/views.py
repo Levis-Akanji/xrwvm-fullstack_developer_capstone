@@ -10,10 +10,12 @@ import logging
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
 
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 # Create your views here.
+
 
 # Create a `login_request` view to handle sign-in requests
 @csrf_exempt
