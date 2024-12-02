@@ -15,7 +15,6 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 
-
 # Create a `login_request` view to handle sign-in requests
 @csrf_exempt
 def login_user(request):
@@ -71,7 +70,8 @@ def registration(request):
     return JsonResponse({"error": "Invalid request"}, status=400)
 
 
-# Update the `get_dealerships` view to render the index page with a list of dealerships
+# Update the `get_dealerships` 
+# view to render the index page with a list of dealerships
 def get_dealerships(request, state="All"):
     endpoint = "/fetchDealers" if state == "All" else (
         f"/fetchDealers/{state}"
