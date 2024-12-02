@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.utils.timezone import now
 
 # Assuming CarMake model is already defined as per your previous requirements
+
 class CarMake(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()

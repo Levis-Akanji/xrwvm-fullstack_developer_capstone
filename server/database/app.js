@@ -18,10 +18,10 @@ const Dealerships = require('./dealership');
 
 try {
   Reviews.deleteMany({}).then(() => {
-    Reviews.insertMany(reviews_data['reviews']);
+    Reviews.insertMany(reviews_data.reviews);  // Using dot notation instead of ['reviews']
   });
   Dealerships.deleteMany({}).then(() => {
-    Dealerships.insertMany(dealerships_data['dealerships']);
+    Dealerships.insertMany(dealerships_data.dealerships);  // Using dot notation instead of ['dealerships']
   });
 } catch (error) {
   console.error('Error initializing database:', error);
@@ -90,18 +90,18 @@ app.get('/fetchDealer/:id', async (req, res) => {
 app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
   const data = JSON.parse(req.body);
   const documents = await Reviews.find().sort({ id: -1 });
-  let new_id = documents[0]['id'] + 1;
+  let new_id = documents[0].id + 1;  // Using dot notation instead of ['id']
 
   const review = new Reviews({
-    "id": new_id,
-    "name": data['name'],
-    "dealership": data['dealership'],
-    "review": data['review'],
-    "purchase": data['purchase'],
-    "purchase_date": data['purchase_date'],
-    "car_make": data['car_make'],
-    "car_model": data['car_model'],
-    "car_year": data['car_year'],
+    id: new_id,
+    name: data.name,  // Using dot notation instead of ['name']
+    dealership: data.dealership,  // Using dot notation instead of ['dealership']
+    review: data.review,  // Using dot notation instead of ['review']
+    purchase: data.purchase,  // Using dot notation instead of ['purchase']
+    purchase_date: data.purchase_date,  // Using dot notation instead of ['purchase_date']
+    car_make: data.car_make,  // Using dot notation instead of ['car_make']
+    car_model: data.car_model,  // Using dot notation instead of ['car_model']
+    car_year: data.car_year,  // Using dot notation instead of ['car_year']
   });
 
   try {
