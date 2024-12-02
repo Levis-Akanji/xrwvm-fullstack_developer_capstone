@@ -19,8 +19,6 @@ class CarModel(models.Model):
         CarMake, on_delete=models.CASCADE, related_name='car_models'
     )
 
-    # Dealer ID (IntegerField), 
-    # assuming it refers to a dealer in an external Cloudant database
     dealer_id = models.IntegerField()
 
     # Car model name (e.g., "Corolla", "X5")
@@ -53,7 +51,6 @@ class CarModel(models.Model):
     )
 
     # String representation of the car model 
-    # (returns both car make and model name)
     def __str__(self):
         return (
             f"{self.car_make.name} {self.name} ({self.type}, {self.year})"
