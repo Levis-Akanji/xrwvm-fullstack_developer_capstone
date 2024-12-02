@@ -55,4 +55,3 @@ class CarModel(models.Model):
         return (
             f"{self.car_make.name} {self.name} ({self.type}, {self.year})"
         )
-    
