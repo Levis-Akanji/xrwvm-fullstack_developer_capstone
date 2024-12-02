@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 
+
 # Create a `login_request` view to handle sign in request
 @csrf_exempt
 def login_user(request):
@@ -63,12 +64,14 @@ def registration(request):
             first_name=first_name,
             last_name=last_name
         )
-        return JsonResponse({"status": "User created successfully", "userName": username}, status=201)
+        return JsonResponse({"status": "User created successfully", "userName": username}, 
+                            status=201)
 
     return JsonResponse({"error": "Invalid request"}, status=400)
 
 
-# Update the `get_dealerships` view to render the index page with a list of dealerships
+# Update the `get_dealerships` view to render the index page with a 
+# list of dealerships
 def get_dealerships(request, state="All"):
     if state == "All":
         endpoint = "/fetchDealers"
@@ -124,5 +127,6 @@ def get_cars(request):
         initiate()
     
     car_models = CarModel.objects.select_related('car_make')
-    cars = [{"CarModel": car_model.name, "CarMake": car_model.car_make.name} for car_model in car_models]
+    cars = [{"CarModel": car_model.name, "CarMake": car_model.car_make.name} 
+            for car_model in car_models]
     return JsonResponse({"CarModels": cars})

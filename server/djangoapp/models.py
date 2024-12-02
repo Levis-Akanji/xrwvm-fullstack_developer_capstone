@@ -16,9 +16,11 @@ class CarMake(models.Model):
 # Car Model
 class CarModel(models.Model):
     # ForeignKey to CarMake model (Many-to-One relationship)
-    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE, related_name='car_models')
+    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE, 
+                                 related_name='car_models')
 
-    # Dealer ID (IntegerField), assuming it refers to a dealer in an external Cloudant database
+    # Dealer ID (IntegerField), assuming it refers to a dealer in an external 
+    # Cloudant database
     dealer_id = models.IntegerField()
 
     # Car model name (e.g., "Corolla", "X5")
@@ -46,7 +48,8 @@ class CarModel(models.Model):
     description = models.TextField(blank=True, null=True)
 
     # Optional price field
-    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, 
+                                blank=True, null=True)
 
     # String representation of the car model (returns both car make and model name)
     def __str__(self):
