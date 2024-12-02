@@ -33,9 +33,12 @@ def login_user(request):
         response_data = {"userName": username, "status": "Authenticated"}
     return JsonResponse(response_data)
 # Create a `logout_request` view to handle sign-out requests
+
+
 def logout_user(request):
     logout(request)
     return JsonResponse({"userName": ""})
+
 
 # Create a `registration` view to handle sign-up requests
 @csrf_exempt
@@ -66,7 +69,7 @@ def registration(request):
     return JsonResponse({"error": "Invalid request"}, status=400)
 
 
-# Update the `get_dealerships` 
+# Update the get_leadership.
 def get_dealerships(request, state="All"):
     endpoint = "/fetchDealers" if state == "All" else (
         f"/fetchDealers/{state}"
