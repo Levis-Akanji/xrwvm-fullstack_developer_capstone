@@ -42,7 +42,7 @@ def logout_user(request):
 
 # Create a `registration` view to handle sign-up requests
 @csrf_exempt
-def registration(request):
+def registration_user(request):
     if request.method == "POST":
         data = json.loads(request.body)
         username = data.get("userName")
